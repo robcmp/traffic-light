@@ -3,9 +3,23 @@ import './Stoplight.css';
 
 
 const Traffic = () => {
-    let [focus, setFocus] = useState("");
-    const setSelected = () => {
-        setFocus(focus === "" ? "active-light" : "")
+    let [redHigh, setRed] = useState(false);
+    let [yellowHigh, setYellow] = useState(false);
+    let [greenHigh, setGreen] = useState(false);
+    const setSelected = (e) => {
+        if (e.target.id === "red") {
+            setRed(true);
+            setYellow(false);
+            setGreen(false);
+        } else if (e.target.id === "yellow") {
+            setRed(false);
+            setYellow(true);
+            setGreen(false);
+        } else if (e.target.id === "green") {
+            setRed(false);
+            setYellow(false);
+            setGreen(true);
+        }
     }
 
     return (
@@ -14,17 +28,16 @@ const Traffic = () => {
                 <div className="card-body">
                     <div className="row">
                         <div className="col-md-12">
-                            <button className={`border border-danger rounded-circle bg-danger dot ${focus}`}
+                            <button id="red" className={`border border-danger rounded-circle bg-danger dot ${redHigh === true ? "active-light" : ""}`}
                                 onClick={setSelected}>
-
                             </button>
                         </div>
                         <div className="col-md-12">
-                            <button className={`border border-warning rounded-circle bg-warning dot`}
+                            <button id="yellow" className={`border border-warning rounded-circle bg-warning dot ${yellowHigh === true ? "active-light" : ""}`}
                                 onClick={setSelected}></button>
                         </div>
                         <div className="col-md-12">
-                            <button className={`border border-success rounded-circle bg-success dot`}
+                            <button id="green" className={`border border-success rounded-circle bg-success dot ${greenHigh === true ? "active-light" : ""}`}
                                 onClick={setSelected}>
                             </button>
                         </div>
